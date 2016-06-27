@@ -10,11 +10,13 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <spring-boot-version>1.3.3.RELEASE</spring-boot-version>
+        <h2-version>1.4.191</h2-version>
         <junit-version>4.12</junit-version>
         <spring-version>4.2.5.RELEASE</spring-version>
         <spring-data-version>1.9.4.RELEASE</spring-data-version>
         <mockito-version>2.0.2-beta</mockito-version>
         <spring-mock>2.9.0</spring-mock>
+        <rest-reassured-version>2.9.0</rest-reassured-version>
     </properties>
 
     <modules>
@@ -38,6 +40,13 @@
                 <artifactId>mockito-all</artifactId>
                 <version>${mockito-version}</version>
                 <scope>test</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2-version}</version>
             </dependency>
 
             <dependency>
@@ -75,6 +84,13 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>${spring-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jayway.restassured</groupId>
+                <artifactId>rest-assured</artifactId>
+                <version>${rest-reassured-version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
