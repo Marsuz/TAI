@@ -1,0 +1,42 @@
+<div ng-controller="postsController">
+    <div ng-repeat="x in records">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{x.title}}</h3>
+            </div>
+            <div class="panel-body">
+                {{x.description}}
+            </div>
+            <div class="panel-footer">
+                <button type="button" class="btn btn-success navbar-btn">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    Like ({{x.likes}})
+                </button>
+                <button type="button" class="btn btn-danger navbar-btn">
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                    Dislike ({{x.dislikes}})
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="icon" href="lib/bootstrap/favicon.ico">-->
+
+    <title>Przepisy</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="lib/bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/jumbotron-narrow.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-resource/angular-resource.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+    <!--  -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <script src="app/app.js"></script>
+    <script src="app/recipes/AddRecipe.ctrl.js"></script>
+  </head>
+
+  <body ng-app="app" style="background-image: url('images/food.png')">
+
+
+    <div class="container" >
+
+        <nav style="margin-bottom: 5px">
+          <ul class="nav nav-pills">
+            <li role="presentation"><a href="app/authorization/login.html">Login</a></li>
+            <li role="presentation"><a href="#profile">Profile</a></li>
+          </ul>
+        </nav>
+
+
+      <div class="jumbotron">
+        <h1>Przepisy</h1>
+        <p class="lead">Hello.</p>
+      </div>
+
+
+      <div>
+        <section ng-controller="TabController as tab">
+          <ul id ="myTabs" class="nav nav-tabs">
+            <li ng-class="{active:tab.isSet(1)}" role="presentation" class="active">
+              <a ng-click="tab.setTab(1)" data-toggle="tab" href="#">Home</a>
+            </li>
+            <li ng-class="{active:tab.isSet(2)}" role="presentation">
+              <a ng-click="tab.setTab(2)" data-toggle="tab" href="#my-recipes">My recipes</a>
+            </li>
+            <li ng-class="{active:tab.isSet(3)}" role="presentation">
+              <a ng-click="tab.setTab(3)" data-toggle="tab" href="#add-recipe">Add recipe</a>
+            </li>
+            <li ng-class="{active:tab.isSet(4)}" role="presentation">
+              <a ng-click="tab.setTab(4)" data-toggle="tab" href="#search">Search</a>
+            </li>
+
+          </ul>
+        </section>
+      </div>
+
+      <div ui-view style="margin-top: -1px" class="tab-pane fade in active">
+
+
+      </div>
+
+
+
+
+      <footer class="footer">
+        <p>&copy; 2015 Company, Inc.</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="lib/bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+
+  </body>
+
+</html>

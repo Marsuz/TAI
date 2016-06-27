@@ -1,0 +1,85 @@
+<div class="panel panel-default" ng-controller="AddRecipeController">
+    <form ng-submit="processForm()">
+        <div class="panel-body">
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Title</span>
+                <input ng-model="recipe.title" type="text" maxlength="100" class="form-control" placeholder="Title"
+                       aria-describedby="basic-addon1">
+            </div>
+
+
+            <textarea ng-model="recipe.description" id="recipedescription" class="form-control" maxlength="10000"
+                      placeholder="Description"></textarea>
+
+            <div class="panel panel-default" style="border-color: #cccccc">
+                <div class="panel-heading">Ingredients</div>
+
+                <div class="panel-body">
+                    <div>
+                        <p ng-bind="ingredientsString()"></p>
+                    </div>
+
+                    <div ng-repeat="f in checkedIngredients" style="margin-top: 4px">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group">
+                                          <span class="input-group-addon">
+                                            {{f}}
+                                          </span>
+                                    <input type="text" ng-model="checked[f]" class="form-control" placeholder="Quantity"
+                                           aria-label="...">
+                                </div><!-- /input-group -->
+                            </div><!-- /.col-lg-6 -->
+
+                        </div>
+
+                    </div>
+
+                    <!--Filter dump: {{checkedIngredients}}-->
+
+
+                    <div class="panel-body">
+                        <form class="navbar-form navbar-left" role="search" style="width: 100px">
+                            <div class="form-group">
+                                <input ng-model="search" type="text" class="form-control" placeholder="Search"
+                                       style="width: 200px">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div id="categoryContainer" ng-repeat="x in ingredients">
+                            <div ng-repeat="(key,val) in x">
+                                {{key}}:
+
+                                <label class="checkbox-inline" ng-repeat="ingredient in val | filter : search">
+
+                                    <div class="checkbox checkbox-info checkbox-inline">
+                                        <input ng-model="ingredient.checked"
+                                               ng-click="showOrHideIngredient(ingredient.name)"
+                                               type="checkbox" ng-attr-id="{{ingredient.name}}" value="option1">
+                                        <label ng-attr-for="{{ingredient.name}}"> {{ingredient.name}} </label>
+                                    </div>
+
+                                </label>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+            <button type="submit" class="btn btn-success right">Save recipe!</button>
+        </div>
+    </form>
+</div>
+
+
+
+

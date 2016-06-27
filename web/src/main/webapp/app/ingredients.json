@@ -1,0 +1,60 @@
+{
+  "ingredients": [
+    {
+      "Warzywa": [
+        {
+          "id": "1",
+          "name": "ziemniaki"
+        },
+        {
+          "id": "2",
+          "name": "marchewka"
+        },
+        {
+          "id": "3",
+          "name": "cebula"
+        },
+        {
+          "id": "4",
+          "name": "pomidor"
+        }
+      ],
+      "Owoce": [
+        {
+          "id": "1",
+          "name": "jabłko"
+        },
+        {
+          "id": "2",
+          "name": "banan"
+        },
+        {
+          "id": "3",
+          "name": "mandarynka"
+        },
+        {
+          "id": "4",
+          "name": "borówka"
+        }
+      ],
+      "Przyprawy": [
+        {
+          "id": "1",
+          "name": "pieprz"
+        },
+        {
+          "id": "2",
+          "name": "sól"
+        },
+        {
+          "id": "3",
+          "name": "słodka papryka"
+        },
+        {
+          "id": "4",
+          "name": "oregano"
+        }
+      ]
+    }
+  ]
+}
