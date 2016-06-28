@@ -21,7 +21,6 @@
 
     <modules>
         <module>core</module>
-        <module>web</module>
     </modules>
 
     <dependencyManagement>
@@ -95,8 +94,12 @@
         </dependencies>
     </dependencyManagement>
 
-    <build>
+    <build><pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -107,6 +110,7 @@
                 </configuration>
             </plugin>
         </plugins>
+    </pluginManagement>
     </build>
 
 
