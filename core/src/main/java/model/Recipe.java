@@ -14,7 +14,7 @@ public class Recipe {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy="recipe")
+    @OneToMany(cascade=CascadeType.ALL)
     List<IngredientQuantityWrapper> ingredientsWithQuantity;
 
     private AtomicInteger likesCounter = new AtomicInteger(0);
@@ -54,7 +54,7 @@ public class Recipe {
     }
 
     public void addIngredient(Ingredient ingredient, int quantity) {
-        ingredientsWithQuantity.add(new IngredientQuantityWrapper(this, ingredient, quantity));
+        ingredientsWithQuantity.add(new IngredientQuantityWrapper(ingredient, quantity));
     }
 
     public int getLikesCounter() {

@@ -13,10 +13,6 @@ public class IngredientQuantityWrapper {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name="recipe_id")
-    private Recipe recipe;
-
-    @ManyToOne
     @JoinColumn(name="ingredient_id")
     private Ingredient ingredient;
 
@@ -25,8 +21,7 @@ public class IngredientQuantityWrapper {
     public IngredientQuantityWrapper() {
     }
 
-    public IngredientQuantityWrapper(Recipe recipe, Ingredient ingredient, int quantity) {
-        this.recipe = recipe;
+    public IngredientQuantityWrapper(Ingredient ingredient, int quantity) {
         this.ingredient = ingredient;
         this.quantity = quantity;
     }
@@ -37,14 +32,6 @@ public class IngredientQuantityWrapper {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
     }
 
     public Ingredient getIngredient() {
