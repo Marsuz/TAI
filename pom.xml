@@ -13,6 +13,7 @@
         <h2-version>1.4.191</h2-version>
         <junit-version>4.12</junit-version>
         <spring-version>4.2.5.RELEASE</spring-version>
+        <asserj-version>1.2.0</asserj-version>
         <spring-data-version>1.9.4.RELEASE</spring-data-version>
         <mockito-version>2.0.2-beta</mockito-version>
         <spring-mock>2.9.0</spring-mock>
@@ -21,6 +22,10 @@
 
     <modules>
         <module>core</module>
+        <module>rest</module>
+        <module>services</module>
+        <module>persistence</module>
+        <module>web</module>
     </modules>
 
     <dependencyManagement>
@@ -41,6 +46,11 @@
                 <scope>test</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${asserj-version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.h2database</groupId>

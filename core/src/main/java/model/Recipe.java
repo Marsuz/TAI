@@ -1,5 +1,7 @@
 package model;
 
+import wrappers.IngredientQuantityWrapper;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -8,14 +10,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Recipe {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="recipeId")
-    private long id;
+    @Column(name="recipe_id")
     private String name;
     private String description;
 
-    @OneToMany
-    private List<Ingredient> ingredients;
+    @OneToMany(mappedBy="recipe")
+    List<IngredientQuantityWrapper> ingredientsWithQuantity;
 
     private AtomicInteger likesCounter = new AtomicInteger(0);
     private AtomicInteger dislikesCounter = new AtomicInteger(0);
@@ -23,18 +23,10 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(String name, String description, List<Ingredient> ingredients) {
+    public Recipe(String name, String description, List<IngredientQuantityWrapper> ingredientsWithQuantity) {
         this.name = name;
         this.description = description;
-        this.ingredients = ingredients;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.ingredientsWithQuantity = ingredientsWithQuantity;
     }
 
     public String getName() {
@@ -53,16 +45,16 @@ public class Recipe {
         this.description = description;
     }
 
-    public List<Ingredient> getIngredients() {
-        return ingredients;
+    public List<IngredientQuantityWrapper> getIngredientsWithQuantity() {
+        return ingredientsWithQuantity;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public void setIngredientsWithQuantity(List<IngredientQuantityWrapper> ingredientsWithQuantity) {
+        this.ingredientsWithQuantity = ingredientsWithQuantity;
     }
 
-    public void addIngredient(Ingredient ingredient) {
-        ingredients.add(ingredient);
+    public void addIngredient(Ingredient ingredient, int quantity) {
+        ingredientsWithQuantity.add(new IngredientQuantityWrapper(this, ingredient, quantity));
     }
 
     public int getLikesCounter() {
@@ -96,19 +88,15 @@ public class Recipe {
 
         Recipe recipe = (Recipe) o;
 
-        if (id != recipe.id) return false;
         if (!name.equals(recipe.name)) return false;
-        if (!description.equals(recipe.description)) return false;
-        return ingredients != null ? ingredients.equals(recipe.ingredients) : recipe.ingredients == null;
+        return description.equals(recipe.description);
 
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + name.hashCode();
+        int result = name.hashCode();
         result = 31 * result + description.hashCode();
-        result = 31 * result + (ingredients != null ? ingredients.hashCode() : 0);
         return result;
     }
 }

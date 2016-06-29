@@ -4,15 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan(basePackages = {"core"})
+@EntityScan(basePackages = {"model", "wrappers"})
+@EnableJpaRepositories(basePackages = {"repositories"})
 @ComponentScan({
-        "core",
-        "web",
-        "persistence",
-        "services",
-        "rest"
+        "services", "repositories", "controllers"
 })
 public class App {
 
