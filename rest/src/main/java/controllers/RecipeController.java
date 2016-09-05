@@ -38,8 +38,8 @@ public class RecipeController {
         return recipeService.getAllRecipes();
     }
 
-    @RequestMapping(value="/create", method =RequestMethod.POST)
-    public ResponseEntity<String> createRecipe(@RequestParam("name") String name, @RequestParam("descripiton") String description, @ModelAttribute("ingredients") IngredientsWrapper ingredients) {
+    @RequestMapping(value="/create/{name}", method =RequestMethod.POST)
+    public ResponseEntity<String> createRecipe(@PathVariable("name") String name, @RequestParam("descripiton") String description, @ModelAttribute("ingredients") IngredientsWrapper ingredients) {
 
         recipeService.createRecipe(name, description, ingredients.getIngredientsWithQuantity());
         return new ResponseEntity<>("Recipe successfully created", HttpStatus.OK);
