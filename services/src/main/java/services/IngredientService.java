@@ -41,4 +41,8 @@ public class IngredientService {
         Assert.notNull(ingredient);
         return ingredient;
     }
+
+    public List<Ingredient> getAllIngredientsByCategory(Long catId) {
+        return ingredientRepository.findByCategoryId(catId);
+    }
 }

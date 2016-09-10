@@ -1,11 +1,9 @@
 package controllers;
 
+import model.Category;
 import model.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import services.IngredientService;
 
 import java.util.List;
@@ -30,4 +28,10 @@ public class IngredientController {
     public List<Ingredient> getAllIngredients() {
         return ingredientService.getAllIngredients();
     }
+
+    @RequestMapping(value ="/cat/{catId}", method = RequestMethod.GET)
+    public List<Ingredient> getAllIngredientsWithGivenCategory(@PathVariable Long catId) {
+        return ingredientService.getAllIngredientsByCategory(catId);
+    }
+
 }
