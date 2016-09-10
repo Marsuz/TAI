@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import services.CategoryService;
 import services.IngredientService;
 import services.RecipeService;
-import wrappers.IngredientsWrapper;
 
 import java.util.HashMap;
 import java.util.List;
