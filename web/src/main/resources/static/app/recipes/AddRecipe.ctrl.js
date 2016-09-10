@@ -1,4 +1,5 @@
 app.controller('AddRecipeController', function ($scope, $http) {
+    console.log("LOG: AddREcipe CONTROLLER")
     $scope.ingredients = ingredients; //mock :v
 
     $scope.checkedIngredients = []; // variable to store checked ingredients
@@ -30,10 +31,10 @@ app.controller('AddRecipeController', function ($scope, $http) {
         $scope.checkedIngredients.forEach(retrieveQuantity);
 
         function retrieveQuantity(element) {
-            //var obj = {};
-            arrayIngredientQuantity[element] = $scope.checked[element];
+            var obj = {};
+            obj[element] = $scope.checked[element];
 
-            //arrayIngredientQuantity.push(obj);
+            arrayIngredientQuantity.push(obj);
         }
         console.log(arrayIngredientQuantity);
         return arrayIngredientQuantity;
@@ -44,7 +45,7 @@ app.controller('AddRecipeController', function ($scope, $http) {
         var object = {};
 
         var ingredients = ""; // "mandarynka,pomidor,pieprz"
-        
+
         $scope.checkedIngredients.forEach(concatenateIngredients);
 
         function concatenateIngredients(element) {
@@ -58,7 +59,7 @@ app.controller('AddRecipeController', function ($scope, $http) {
         //object["time"] = time
 
         console.log(object);
-        
+
         //To do
         $http({
             method: 'POST',
