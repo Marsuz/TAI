@@ -1,47 +1,49 @@
-<div class="panel panel-default" style="margin-top: -2px">
-    <div style = "margin: 10px 10px 10px 10px" ng-controller="postsController">
-        <div ng-repeat="x in records">
-            <div class="panel panel-default">
+<div class="container">
 
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{x.title}}</h3>
-                </div>
-                <div class="panel-body">
-                    {{x.description}}
-                </div>
-                <div class="panel-footer">
-                    <button type="button" class="btn btn-success navbar-btn">
-                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                        Like ({{x.likes}})
-                    </button>
-                    <button type="button" class="btn btn-danger navbar-btn">
-                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                        Dislike ({{x.dislikes}})
-                    </button>
+    <nav style="margin-bottom: 5px">
+        <ul class="nav nav-pills">
+            <a class="btn btn-default" href="#login" role="button">Login</a>
+            <a class="btn btn-default" href="#profile" role="button">Profile</a>
+        </ul>
+    </nav>
 
-                    <p class="navbar-text navbar-right" style="margin-right: 10px"><a href="#" class="navbar-link">{{x.author}}</a></p>
-                </div>
-            </div>
-        </div>
 
-        <nav>
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+    <div class="jumbotron">
+        <h1>Przepisy</h1>
+        <p class="lead">i przepisy</p>
     </div>
-</div>
+
+
+    <div>
+        <section ng-controller="HomeCtrl" style="background-color: white">
+            <ul id ="myTabs" class="nav nav-tabs" >
+                <li ng-class="{active:isSet(1)}" role="presentation" class="active">
+                    <a ng-click="changeState(1)" data-toggle="tab" href="#">Home</a>
+                </li>
+                <li ng-class="{active:isSet(2)}" role="presentation">
+                    <a ng-click="changeState(2)" data-toggle="tab" href="#/my-recipes">My recipes</a>
+                </li>
+                <li ng-class="{active:isSet(3)}" role="presentation">
+                    <a ng-click="changeState(3)" data-toggle="tab" href="#/add-recipe">Add recipe</a>
+                </li>
+                <li ng-class="{active:isSet(4)}" role="presentation">
+                    <a ng-click="changeState(4)" data-toggle="tab" href="#/search">Search</a>
+                </li>
+
+            </ul>
+        </section>
+    </div>
+
+    <div ui-view style="margin-top: -1px" class="tab-pane fade in active">
+
+
+    </div>
+
+
+
+
+    <footer class="footer">
+        <p>&copy; 2015 Company, Inc.</p>
+    </footer>
+
+</div> <!-- /container -->

@@ -7,51 +7,58 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
 
-    // HOME STATES AND NESTED VIEWS ========================================
         .state('home', {
             url: '/',
-            templateUrl: 'app/home/home.html'
+            templateUrl: 'app/home/home.html',
+            controller: 'HomeCtrl',
+            redirectTo: 'home.dashboard'
         })
 
-        // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
         .state('login', {
             url: '/login',
             templateUrl: 'app/authorization/login.html'
         })
 
-        // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
-        .state('myrecipes', {
-            url: '/my-recipes',
-            templateUrl: 'app/recipes/my-recipes.html'
+        .state('home.dashboard', {
+            url: 'dashboard',
+            templateUrl: 'app/home/home2.html',
+            onEnter: function($rootScope){
+                $rootScope.$broadcast('tabChange', 1);
+            }
         })
 
-        .state('addrecipe', {
-            url: '/add-recipe',
+        .state('home.myrecipes', {
+            url: 'my-recipes',
+            templateUrl: 'app/recipes/my-recipes.html',
+            onEnter: function($rootScope){
+                    $rootScope.$broadcast('tabChange', 2);
+            }
+        })
+
+        .state('home.addrecipe', {
+            url: 'add-recipe',
             templateUrl: 'app/recipes/add-recipe.html',
-            controller: 'AddRecipeController'
+            controller: 'AddRecipeController',
+            reload: true,
+            cache: false,
+            onEnter: function($rootScope){
+
+                $rootScope.$broadcast('tabChange', 3);
+            }
         })
 
-        .state('search', {
-            url: '/search',
-            templateUrl: 'app/search/search.html'
+        .state('home.search', {
+            url: 'search',
+            templateUrl: 'app/search/search.html',
+            onEnter: function($rootScope){
+                $rootScope.$broadcast('tabChange', 4);
+            }
         });
 
 
 
 
 
-});
-
-app.controller('TabController', function () {
-    this.tab = 1;
-
-    this.setTab = function (tabId) {
-        this.tab = tabId;
-    };
-
-    this.isSet = function (tabId) {
-        return this.tab === tabId;
-    };
 });
 
 var data;
@@ -72,5 +79,15 @@ app.controller('postsController', function($scope) {
     $scope.records = data;
 });
 
+
+app.run(['$rootScope', '$state', function($rootScope, $state) {
+
+    $rootScope.$on('$stateChangeStart', function(evt, to, params) {
+        if (to.redirectTo) {
+            evt.preventDefault();
+            $state.go(to.redirectTo, params, {location: 'replace'})
+        }
+    });
+}]);
 
 
