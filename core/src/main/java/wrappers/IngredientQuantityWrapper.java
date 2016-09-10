@@ -4,6 +4,7 @@ import model.Ingredient;
 import model.ObjectWithId;
 import model.Recipe;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -14,6 +15,7 @@ public class IngredientQuantityWrapper extends ObjectWithId{
     private Ingredient ingredient;
 
     @ManyToOne
+    @JsonIgnore
     private Recipe recipe;
 
     private Long quantity;
@@ -43,11 +45,5 @@ public class IngredientQuantityWrapper extends ObjectWithId{
         this.quantity = quantity;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
-    }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
 }

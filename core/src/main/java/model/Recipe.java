@@ -2,29 +2,25 @@ package model;
 
 import wrappers.IngredientQuantityWrapper;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Recipe extends ObjectWithId{
 
-    @Column(name="name")
     private String name;
+    private String description;
 
-    @Column(name="desc")
-    private String desc;
-
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="recipe_id")
     private List<IngredientQuantityWrapper> ingredientsWithQuantity;
 
     public Recipe() {
     }
 
-    public Recipe(String name, String desc, List<IngredientQuantityWrapper> ingredientsWithQuantity) {
+    public Recipe(String name, String description, List<IngredientQuantityWrapper> ingredientsWithQuantity) {
         this.name = name;
-        this.desc = desc;
+        this.description = description;
         this.ingredientsWithQuantity = ingredientsWithQuantity;
     }
 
@@ -36,12 +32,12 @@ public class Recipe extends ObjectWithId{
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<IngredientQuantityWrapper> getIngredientsWithQuantity() {

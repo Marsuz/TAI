@@ -1,20 +1,11 @@
 package controllers;
 
-import model.Category;
-import model.Ingredient;
 import model.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import services.CategoryService;
-import services.IngredientService;
 import services.RecipeService;
-import wrappers.IngredientsWrapper;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Marcin on 2016-06-28.
