@@ -2,6 +2,7 @@ package wrappers;
 
 import model.Ingredient;
 import model.ObjectWithId;
+import model.Recipe;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -12,13 +13,17 @@ public class IngredientQuantityWrapper extends ObjectWithId{
     @ManyToOne
     private Ingredient ingredient;
 
+    @ManyToOne
+    private Recipe recipe;
+
     private Long quantity;
 
     public IngredientQuantityWrapper() {
     }
 
-    public IngredientQuantityWrapper(Ingredient ingredient, Long quantity) {
+    public IngredientQuantityWrapper(Ingredient ingredient, Recipe recipe, Long quantity) {
         this.ingredient = ingredient;
+        this.recipe = recipe;
         this.quantity = quantity;
     }
 
@@ -36,5 +41,13 @@ public class IngredientQuantityWrapper extends ObjectWithId{
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 }

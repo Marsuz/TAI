@@ -2,13 +2,18 @@ package model;
 
 import wrappers.IngredientQuantityWrapper;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
 public class Recipe extends ObjectWithId{
 
+    @Column(name="name")
     private String name;
+
+    @Column(name="desc")
     private String desc;
 
     @OneToMany

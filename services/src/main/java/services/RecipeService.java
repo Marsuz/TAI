@@ -45,7 +45,7 @@ public class RecipeService {
     public void addIngredientToRecipe(Long recipeId, Long ingId, Long quantity) {
         Recipe recipe = getRecipeById(recipeId);
         Ingredient ingredient = ingredientService.getIngredientById(ingId);
-        recipe.addIngredient(new IngredientQuantityWrapper(ingredient, quantity));
+        recipe.addIngredient(new IngredientQuantityWrapper(ingredient, recipe, quantity));
         recipeRepository.save(recipe);
     }
 }
