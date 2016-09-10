@@ -63,7 +63,7 @@ app.controller('AddRecipeController', function ($scope, $http) {
         //To do
         $http({
             method: 'POST',
-            url: 'add-recipe',
+            url: '/recipes/add',
             data: $.param($scope.checkedIngredients),  // pass in data as strings
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
         })
@@ -81,5 +81,61 @@ app.controller('AddRecipeController', function ($scope, $http) {
                 }
             });
     };
+
+    // delete $http.defaults.headers.common['X-Requested-With'];
+    $scope.getData = function(callbackFunc) {
+        console.log("GETTING DATA");
+        $http({
+            method: 'GET',
+            url: '/recipes/all'
+            // params: 'limit=10, sort_by=created:desc',
+            // headers: {'Authorization': 'Token token=xxxxYYYYZzzz'}
+        }).success(function(data){
+            // With the data succesfully returned, call our callback
+            console.log(data);
+
+            console.log(data[0].description);
+
+        }).error(function(){
+            console.log("ERROR");
+            alert("error");
+        });
+    };
+
+    $scope.getData();
+
+
+
+
+    $scope.postRecipe = function(callbackFunc) {
+        console.log("POSTING DATA");
+
+        console.log($scope.recipe.title);
+        console.log($scope.recipe.description);
+
+
+        var jsonToPost = {
+            name: $scope.recipe.title,
+            description: $scope.recipe.description
+        };
+
+        $http({
+            method: 'POST',
+            url: '/recipes/addWhole',
+            data: jsonToPost
+            // params: 'limit=10, sort_by=created:desc',
+            // headers: {'Authorization': 'Token token=xxxxYYYYZzzz'}
+        }).success(function(data){
+            // With the data succesfully returned, call our callback
+            console.log(data);
+
+
+        }).error(function(){
+            console.log("ERROR POSTING");
+            // alert("error");
+        });
+    };
+    
+   
 
 });

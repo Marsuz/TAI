@@ -21,7 +21,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         .state('home.dashboard', {
             url: 'dashboard',
-            templateUrl: 'app/home/home2.html',
+            templateUrl: 'app/dashboard/dashboard.html',
+            controller: 'DashboardCtrl',
             onEnter: function($rootScope){
                 $rootScope.$broadcast('tabChange', 1);
             }
@@ -30,6 +31,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('home.myrecipes', {
             url: 'my-recipes',
             templateUrl: 'app/recipes/my-recipes.html',
+            controller: 'MyRecipesCtrl',
             onEnter: function($rootScope){
                     $rootScope.$broadcast('tabChange', 2);
             }
@@ -74,11 +76,6 @@ $.getJSON("app/ingredients.json", function(json) {
     ingredients = json.ingredients;
 
 });
-
-app.controller('postsController', function($scope) {
-    $scope.records = data;
-});
-
 
 app.run(['$rootScope', '$state', function($rootScope, $state) {
 

@@ -1,42 +1,34 @@
-<div ng-controller="postsController">
-    <div ng-repeat="x in records">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{x.title}}</h3>
-            </div>
-            <div class="panel-body">
-                {{x.description}}
-            </div>
-            <div class="panel-footer">
-                <button type="button" class="btn btn-success navbar-btn">
-                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                    Like ({{x.likes}})
-                </button>
-                <button type="button" class="btn btn-danger navbar-btn">
-                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                    Dislike ({{x.dislikes}})
-                </button>
+<div class="panel panel-default" style="margin-top: -2px">
+    <div style = "margin: 10px 10px 10px 10px">
+        <div ng-repeat="x in records.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{x.name}}</h3>
+                </div>
+                <div class="panel-body">
+                    {{x.description}}
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-success navbar-btn">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                        Like ({{x.likeCounter || "0"}})
+                    </button>
+                    <button type="button" class="btn btn-danger navbar-btn">
+                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                        Dislike ({{x.dislikeCounter || "0"}})
+                    </button>
+
+                    <p class="navbar-text navbar-right" style="margin-right: 10px"><a href="#" class="navbar-link">{{x.author}}</a></p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <nav>
-        <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+        <nav>
+            <ul class="pager">
+                <li ng-class="{disabled: currentPage==1}" ng-click="loadPrevPage()"><a href="#/my-recipes">Previous</a></li>
+                <li ng-class="{disabled: currentPage==lastPage}" ng-click="loadNextPage()"><a href="#/my-recipes">Next</a></li>
+            </ul>
+        </nav>
+    </div>
 </div>
