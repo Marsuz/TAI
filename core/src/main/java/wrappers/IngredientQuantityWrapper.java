@@ -45,5 +45,11 @@ public class IngredientQuantityWrapper extends ObjectWithId{
         this.quantity = quantity;
     }
 
+    public Recipe getRecipe() {
+        return recipe;
+    }
 
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
 }

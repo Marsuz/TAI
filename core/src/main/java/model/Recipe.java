@@ -4,14 +4,17 @@ import wrappers.IngredientQuantityWrapper;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Entity
 public class Recipe extends ObjectWithId{
 
     private String name;
     private String description;
+    private AtomicLong likeCounter = new AtomicLong(0);
+    private AtomicLong dislikeCounter = new AtomicLong(0);
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name="recipe_id")
     private List<IngredientQuantityWrapper> ingredientsWithQuantity;
 
@@ -40,6 +43,22 @@ public class Recipe extends ObjectWithId{
         this.description = description;
     }
 
+    public AtomicLong getLikeCounter() {
+        return likeCounter;
+    }
+
+    public void setLikeCounter(AtomicLong likeCounter) {
+        this.likeCounter = likeCounter;
+    }
+
+    public AtomicLong getDislikeCounter() {
+        return dislikeCounter;
+    }
+
+    public void setDislikeCounter(AtomicLong dislikeCounter) {
+        this.dislikeCounter = dislikeCounter;
+    }
+
     public List<IngredientQuantityWrapper> getIngredientsWithQuantity() {
         return ingredientsWithQuantity;
     }
@@ -50,5 +69,13 @@ public class Recipe extends ObjectWithId{
 
     public void addIngredient(IngredientQuantityWrapper ingredientWithQuantity) {
         ingredientsWithQuantity.add(ingredientWithQuantity);
+    }
+
+    public Long likeRecipe() {
+        return likeCounter.incrementAndGet();
+    }
+
+    public Long dislikeRecipe() {
+        return dislikeCounter.incrementAndGet();
     }
 }

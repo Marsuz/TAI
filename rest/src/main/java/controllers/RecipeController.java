@@ -19,8 +19,13 @@ public class RecipeController {
     RecipeService recipeService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void addRecipe(@RequestParam("name") String name, @RequestParam("desc") String desc) {
+    public void createBlankRecipe(@RequestParam("name") String name, @RequestParam("desc") String desc) {
         recipeService.createNewRecipe(name, desc);
+    }
+
+    @RequestMapping(value = "/addWhole", method = RequestMethod.POST)
+    public void addRecipe(@RequestBody Recipe recipe) {
+        recipeService.saveRecipe(recipe);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)

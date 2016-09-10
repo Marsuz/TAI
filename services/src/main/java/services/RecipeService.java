@@ -36,6 +36,11 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
+    @Transactional
+    public void saveRecipe(Recipe recipe) {
+        recipeRepository.save(recipe);
+    }
+
     public Recipe getRecipeById(Long id) {
         Recipe recipe = recipeRepository.findOne(id);
         Assert.notNull(recipe, "There is no such recipe");
