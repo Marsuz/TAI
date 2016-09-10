@@ -3,24 +3,21 @@ package model;
 import javax.persistence.*;
 
 @Entity
-public class Ingredient {
+public class Ingredient extends ObjectWithId {
 
-    @Id
-    @Column(name="ingredient_id")
     private String name;
+    private String unit;
 
     @ManyToOne
-    @JoinColumn(name="category_id")
     private Category category;
-    private String unit;
 
     public Ingredient() {
     }
 
-    public Ingredient(String name, Category category, String unit) {
+    public Ingredient(String name, String unit, Category category) {
         this.name = name;
-        this.category = category;
         this.unit = unit;
+        this.category = category;
     }
 
     public String getName() {
@@ -31,14 +28,6 @@ public class Ingredient {
         this.name = name;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
     public String getUnit() {
         return unit;
     }
@@ -47,22 +36,11 @@ public class Ingredient {
         this.unit = unit;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Ingredient that = (Ingredient) o;
-
-        if (!name.equals(that.name)) return false;
-        return category != null ? category.equals(that.category) : that.category == null;
-
+    public Category getCategory() {
+        return category;
     }
 
-    @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + (category != null ? category.hashCode() : 0);
-        return result;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

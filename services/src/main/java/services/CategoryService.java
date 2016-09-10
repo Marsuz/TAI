@@ -3,6 +3,8 @@ package services;
 import model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import repositories.CategoryRepository;
 
 import java.util.List;
@@ -15,14 +17,21 @@ import java.util.List;
 public class CategoryService {
 
     @Autowired
-    CategoryRepository repository;
+    CategoryRepository categoryRepository;
 
-    public List<Category> getAll() {
-        return repository.findAll();
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 
-    public void addCategory(Category category) {
-        repository.save(category);
+    @Transactional
+    public void saveCategory(Category category) {
+        categoryRepository.save(category);
+    }
+
+    public Category getCategoryById(Long id) {
+        Category category = categoryRepository.findOne(id);
+        Assert.notNull(category, "There is no such category");
+        return category;
     }
 
 }

@@ -4,7 +4,11 @@ import model.Ingredient;
 import model.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+import repositories.IngredientRepository;
 import repositories.RecipeRepository;
+import wrappers.IngredientQuantityWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +21,31 @@ import java.util.Map;
 public class RecipeService {
 
     @Autowired
-    RecipeRepository repository;
+    RecipeRepository recipeRepository;
+
+    @Autowired
+    IngredientService ingredientService;
 
     public List<Recipe> getAllRecipes() {
-        return repository.findAll();
+        return recipeRepository.findAll();
     }
 
-    public void createRecipe(String name, String desc, Map<Ingredient, Integer> ingredients) {
+    @Transactional
+    public void createNewRecipe(String name, String desc) {
         Recipe recipe = new Recipe(name, desc, new ArrayList<>());
-        for(Ingredient ingredient : ingredients.keySet()) {
-            recipe.addIngredient(ingredient, ingredients.get(ingredient));
-        }
-        repository.save(recipe);
+        recipeRepository.save(recipe);
+    }
+
+    public Recipe getRecipeById(Long id) {
+        Recipe recipe = recipeRepository.findOne(id);
+        Assert.notNull(recipe, "There is no such recipe");
+        return recipe;
+    }
+
+    public void addIngredientToRecipe(Long recipeId, Long ingId, Long quantity) {
+        Recipe recipe = getRecipeById(recipeId);
+        Ingredient ingredient = ingredientService.getIngredientById(ingId);
+        recipe.addIngredient(new IngredientQuantityWrapper(ingredient, quantity));
+        recipeRepository.save(recipe);
     }
 }

@@ -27,43 +27,19 @@ public class RecipeController {
     @Autowired
     RecipeService recipeService;
 
-    @Autowired
-    CategoryService categoryService;
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public void addRecipe(@RequestParam("name") String name, @RequestParam("desc") String desc) {
+        recipeService.createNewRecipe(name, desc);
+    }
 
-    @Autowired
-    IngredientService ingredientService;
-
-    @RequestMapping(value="/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Recipe> getAllRecipes() {
         return recipeService.getAllRecipes();
     }
 
-    @RequestMapping(value="/create/{name}", method =RequestMethod.POST)
-    public ResponseEntity<String> createRecipe(@PathVariable("name") String name, @RequestParam("descripiton") String description, @ModelAttribute("ingredients") IngredientsWrapper ingredients) {
-
-        recipeService.createRecipe(name, description, ingredients.getIngredientsWithQuantity());
-        return new ResponseEntity<>("Recipe successfully created", HttpStatus.OK);
-
-    }
-
-    @RequestMapping(value="/testcreate", method=RequestMethod.GET)
-    public ResponseEntity<String> createDumbData() {
-        Category category = new Category("ryby");
-
-        categoryService.addCategory(category);
-
-        Ingredient ingredient1 = new Ingredient("losos", category, "kg");
-        Ingredient ingredient2 = new Ingredient("sledz", category, "kg");
-
-        ingredientService.addIngredient(ingredient1);
-        ingredientService.addIngredient(ingredient2);
-
-
-        Map<Ingredient, Integer> quantities = new HashMap<>();
-        quantities.put(ingredient1, 1);
-        quantities.put(ingredient2, 2);
-        recipeService.createRecipe("testrybny", "testrybnydesc", quantities);
-        return new ResponseEntity<>("Test rybny done", HttpStatus.OK);
+    @RequestMapping(value = "/add/{recId}/{ingId}", method = RequestMethod.PUT)
+    public void addIngredientToRecipe(@PathVariable("recId") Long recId, @PathVariable("ingId") Long ingId, @RequestParam("quantity") Long quantity) {
+        recipeService.addIngredientToRecipe(recId, ingId, quantity);
     }
 
 }

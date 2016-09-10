@@ -1,37 +1,25 @@
 package wrappers;
 
 import model.Ingredient;
-import model.Recipe;
+import model.ObjectWithId;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class IngredientQuantityWrapper {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class IngredientQuantityWrapper extends ObjectWithId{
 
     @ManyToOne
-    @JoinColumn(name="ingredient_id")
     private Ingredient ingredient;
 
-    private int quantity;
+    private Long quantity;
 
     public IngredientQuantityWrapper() {
     }
 
-    public IngredientQuantityWrapper(Ingredient ingredient, int quantity) {
+    public IngredientQuantityWrapper(Ingredient ingredient, Long quantity) {
         this.ingredient = ingredient;
         this.quantity = quantity;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Ingredient getIngredient() {
@@ -42,11 +30,11 @@ public class IngredientQuantityWrapper {
         this.ingredient = ingredient;
     }
 
-    public int getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 }
