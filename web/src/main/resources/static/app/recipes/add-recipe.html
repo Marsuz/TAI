@@ -1,16 +1,16 @@
-<div class="panel panel-default" ng-controller="AddRecipeController">
+<div class="panel panel-default">
     <form ng-submit="postRecipe()">
         <div class="panel-body">
 
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Title</span>
-                <input ng-model="recipe.title" type="text" maxlength="100" class="form-control" placeholder="Title"
-                       aria-describedby="basic-addon1">
+                <input ng-model="title" type="text" maxlength="100" class="form-control" placeholder="Title"
+                       aria-describedby="basic-addon1" required>
             </div>
 
 
-            <textarea ng-model="recipe.description" id="recipedescription" class="form-control" maxlength="10000"
-                      placeholder="Description"></textarea>
+            <textarea ng-model="description" id="recipedescription" class="form-control" maxlength="10000"
+                      placeholder="Description" required></textarea>
 
             <div class="panel panel-default" style="border-color: #cccccc">
                 <div class="panel-heading">Ingredients</div>
@@ -25,10 +25,10 @@
                             <div class="col-lg-6">
                                 <div class="input-group">
                                           <span class="input-group-addon">
-                                            {{f}}
+                                            {{f.name}} ({{f.unit}})
                                           </span>
-                                    <input type="text" ng-model="checked[f]" class="form-control" placeholder="Quantity"
-                                           aria-label="...">
+                                    <input type="text" ng-model="checked[f.name]" class="form-control" placeholder="Quantity"
+                                           aria-label="..." required>
                                 </div><!-- /input-group -->
                             </div><!-- /.col-lg-6 -->
 
@@ -38,7 +38,7 @@
 
                     <!--Filter dump: {{checkedIngredients}}-->
 
-
+                    <hr>
                     <div class="panel-body">
                         <form class="navbar-form navbar-left" role="search" style="width: 100px">
                             <div class="form-group">
@@ -48,35 +48,56 @@
                         </form>
                     </div>
 
-                    <div class="panel-body">
+                </div>
 
-                        <div id="categoryContainer" ng-repeat="x in ingredients">
-                            <div ng-repeat="(key,val) in x">
-                                {{key}}:
+                <div class="form-group" style="width: 50%; padding: 0px 15px">
+                    <label for="sel1">Choose category:</label>
+                    <select class="form-control" id="sel1" ng-model="selectedCategory" ng-change="showCategory(selectedCategory)">
+                        <option ng-repeat="category in categories">{{category.name}}</option>
+                    </select>
+                </div>
 
-                                <label class="checkbox-inline" ng-repeat="ingredient in val | filter : search">
+                <div style="height: 300px; overflow: auto">
 
-                                    <div class="checkbox checkbox-info checkbox-inline">
-                                        <input ng-model="ingredient.checked"
-                                               ng-click="showOrHideIngredient(ingredient.name)"
-                                               type="checkbox" ng-attr-id="{{ingredient.name}}" value="option1">
-                                        <label ng-attr-for="{{ingredient.name}}"> {{ingredient.name}} </label>
-                                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                Ingredient
+                            </th>
+                            <th>Unit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="ingredient in filteredIngredients = (ingredientsFromCategory | filter : search)">
+                            <td>
+                                <div class="checkbox checkbox-info checkbox-inline">
+                                    <input ng-model="ingredient.checked"
+                                           ng-click="showOrHideIngredient(ingredient)"
+                                           type="checkbox" ng-attr-id="{{ingredient.name}}" value="option1">
+                                    <label ng-attr-for="{{ingredient.name}}"> {{ingredient.name}} </label>
+                                </div>
+                            </td>
+                            <td>{{ingredient.unit}}</td>
+                        </tr>
+                        <tr ng-show="!filteredIngredients.length">
+                            <td>
+                                No ingredients found.
+                            </td>
+                            <td>{{ingredient.unit}}</td>
+                        </tr>
 
-                                </label>
-                            </div>
-
-
-                        </div>
-
-
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
 
 
             </div>
             <button type="submit" class="btn btn-success right">Save recipe!</button>
         </div>
+
+
+
     </form>
 </div>
 

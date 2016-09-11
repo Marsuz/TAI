@@ -9,6 +9,15 @@
                 <div class="panel-body">
                     {{x.description}}
                 </div>
+
+                <div class="panel-body">
+                    <b>Składniki:</b>
+                    <div ng-repeat="ingredient in x.ingredientsWithQuantity">
+                        - {{ingredient.ingredient.name}}: {{ingredient.quantity}}{{ingredient.ingredient.unit}}<br/>
+                    </div>
+                </div>
+
+
                 <div class="panel-footer">
                     <button type="button" class="btn btn-success navbar-btn">
                         <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>

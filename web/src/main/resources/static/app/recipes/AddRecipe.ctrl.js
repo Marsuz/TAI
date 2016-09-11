@@ -1,22 +1,27 @@
-app.controller('AddRecipeController', function ($scope, $http) {
+app.controller('AddRecipeController', function ($scope, $http, $filter) {
     console.log("LOG: AddREcipe CONTROLLER")
     $scope.ingredients = ingredients; //mock :v
 
-    $scope.checkedIngredients = []; // variable to store checked ingredients
+    $scope.checkedIngredients = []; // variable to store checked ingredients and show them with quantity
 
-    $scope.checked = []; // variable where is mapped checked -> quantity
+    $scope.checked = []; // variable where is mapped "variable.name" -> "quantity"
 
     $scope.recipe = {}; //variable to store user input
 
-    $scope.showOrHideIngredient = function (ingredient) {
+    $scope.search = '';
 
-        var i = $.inArray(ingredient, $scope.checkedIngredients);
-        if (i > -1) {
-            $scope.checkedIngredients.splice(i, 1);
-        } else {
-            $scope.checkedIngredients.push(ingredient);
-        }
-    };
+    $scope.selectedCategory = '';
+
+    $scope.categories = []; // from json
+
+    $scope.categoriesWithIngredients = [];
+    $scope.ingredientsFromCategory = []; // from json
+
+
+
+    $scope.showChecked = function () {
+        console.log($scope.checkedIngredients);
+    }
 
     $scope.ingredientsString = function () { //string to show when choosing ingredients
         if ($scope.checkedIngredients.length == 0) {
@@ -25,61 +30,50 @@ app.controller('AddRecipeController', function ($scope, $http) {
         return "Your ingredients:"
     }
 
-    $scope.processIngredients = function () { //ugly way to check if ingredient is really checked
-        var arrayIngredientQuantity = [];
+    $scope.showOrHideIngredient = function (ingredient) {  // gets checked ingredients and shows/hides if checked/unchecked
 
-        $scope.checkedIngredients.forEach(retrieveQuantity);
-
-        function retrieveQuantity(element) {
-            var obj = {};
-            obj[element] = $scope.checked[element];
-
-            arrayIngredientQuantity.push(obj);
+        // var i = $.inArray(ingredient, $scope.checkedIngredients);
+        var i = $scope.checkedIngredients.indexOf(ingredient);
+        if (i > -1) {
+            $scope.checkedIngredients.splice(i, 1);
+        } else {
+            $scope.checkedIngredients.push(ingredient);
         }
-        console.log(arrayIngredientQuantity);
-        return arrayIngredientQuantity;
     };
 
-    $scope.processForm = function () { // function executed when submitted
-        var toReturn = {};
-        var object = {};
 
-        var ingredients = ""; // "mandarynka,pomidor,pieprz"
+    $scope.processIngredients = function () { //add Quantity to json form to send
+        var ingredientsWithQuantity = [];
 
-        $scope.checkedIngredients.forEach(concatenateIngredients);
+        $scope.checkedIngredients.forEach(processQuantity);
 
-        function concatenateIngredients(element) {
-            ingredients += (element + ",");
+        function processQuantity(element) {
+            var quantity = $scope.checked[element.name];
+            console.log(quantity);
+
+            var oneIngWithQ = {
+                "ingredient": {
+                    "id": element.id
+                },
+                "quantity": quantity
+            };
+
+            ingredientsWithQuantity.push(oneIngWithQ);
         }
 
-        object["title"] = $scope.recipe.title;
-        object["description"] = $scope.recipe.description;
-        //object["author"] = ?
-        object["ingredients"] = $scope.processIngredients();
-        //object["time"] = time
+        console.log(ingredientsWithQuantity);
 
-        console.log(object);
+        return ingredientsWithQuantity;
+    };
 
-        //To do
-        $http({
-            method: 'POST',
-            url: '/recipes/add',
-            data: $.param($scope.checkedIngredients),  // pass in data as strings
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
-        })
-            .success(function (data) {
-                console.log(data);
+    $scope.processForm = function () { // prepare json from form
+        var jsonToSend = {
+            "name": $scope.title,
+            "description": $scope.description,
+            "ingredientsWithQuantity": $scope.processIngredients()
+        };
 
-                if (!data.success) {
-                    // if not successful, bind errors to error variables
-                    $scope.errorName = data.errors.name;
-                    $scope.errorSuperhero = data.errors.superheroAlias;
-                } else {
-                    // if successful, bind success message to message
-                    $scope.message = data.message;
-                    console.log("Nie ma!")
-                }
-            });
+        console.log(jsonToSend)
     };
 
     // delete $http.defaults.headers.common['X-Requested-With'];
@@ -92,49 +86,130 @@ app.controller('AddRecipeController', function ($scope, $http) {
             // headers: {'Authorization': 'Token token=xxxxYYYYZzzz'}
         }).success(function(data){
             // With the data succesfully returned, call our callback
-            console.log(data);
+            //console.log(data);
 
-            console.log(data[0].description);
+            //console.log(data[0].description);
 
         }).error(function(){
-            console.log("ERROR");
+            //console.log("ERROR");
             alert("error");
         });
     };
 
-    $scope.getData();
+    // $scope.getData();
 
 
 
 
-    $scope.postRecipe = function(callbackFunc) {
+    $scope.postRecipe = function() {
         console.log("POSTING DATA");
 
-        console.log($scope.recipe.title);
-        console.log($scope.recipe.description);
-
-
-        var jsonToPost = {
-            name: $scope.recipe.title,
-            description: $scope.recipe.description
+        var jsonToSend = {
+            "name": $scope.title,
+            "description": $scope.description,
+            "ingredientsWithQuantity": $scope.processIngredients()
         };
-
+        
         $http({
             method: 'POST',
             url: '/recipes/addWhole',
-            data: jsonToPost
-            // params: 'limit=10, sort_by=created:desc',
-            // headers: {'Authorization': 'Token token=xxxxYYYYZzzz'}
+            data: jsonToSend
+            
         }).success(function(data){
-            // With the data succesfully returned, call our callback
             console.log(data);
+            
+        }).error(function(){
+            console.log("ERROR POSTING");
+        });
+    };
+
+    $scope.getIngredientsFromCategory = function (category) {
+
+        console.log("GETTING DATA");
+        $http({
+            method: 'GET',
+            url: '/ing/cat/' + category
+        }).success(function(data){
+            $scope.ingredientsFromCategory = data;
+            console.log(data);
+
+        }).error(function(){
+            console.log("ERROR");
+        });
+
+    }
+
+    $scope.getIngredientsFromCategory(1);
+
+
+    $scope.getCategories = function () {
+
+        console.log("GETTING categories");
+        $http({
+            method: 'GET',
+            url: '/cat/all'
+        }).success(function(data){
+            $scope.categories = data;
+
+            console.log(data);
+
+            $scope.selectedCategory = data[0].name;
+
+            $scope.getIngredientsForCategories();
 
 
         }).error(function(){
-            console.log("ERROR POSTING");
-            // alert("error");
+            console.log("ERROR");
         });
+
+    }
+    
+    $scope.getCategories();
+
+
+    $scope.getIngredientsForCategories = function () {
+
+        $scope.categories.forEach(getIngredients);
+
+        function getIngredients(element) {
+
+            console.log("GETTING ingredients for category " + element.name);
+            $http({
+                method: 'GET',
+                url: '/ing/cat/' + element.id
+            }).success(function(data){
+                $scope.categoriesWithIngredients[element.id] = data;
+
+                console.log("!!!!!!!!!!!!!!");
+                console.log($scope.categoriesWithIngredients);
+
+            }).error(function(){
+                console.log("ERROR");
+            });
+        }
     };
+
+
+    $scope.showCategory = function (categoryName) {
+        console.log("showing category!!!");
+
+        var categoryId = 1;
+
+        $scope.categories.forEach(findId);
+
+        function findId (element) {
+            if (element.name == categoryName) {
+                categoryId = element.id;
+            }
+        }
+
+        $scope.ingredientsFromCategory = $scope.categoriesWithIngredients[categoryId];
+    }
+
+
+
+
+    
     
    
 
