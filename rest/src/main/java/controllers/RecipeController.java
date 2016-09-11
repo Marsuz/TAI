@@ -33,9 +33,24 @@ public class RecipeController {
         return recipeService.getAllRecipes();
     }
 
+    @RequestMapping(value = "/{recId}", method = RequestMethod.GET)
+    public Recipe getRecipeById(@PathVariable Long recId) {
+        return recipeService.getRecipeById(recId);
+    }
+
     @RequestMapping(value = "/add/{recId}/{ingId}", method = RequestMethod.PUT)
     public void addIngredientToRecipe(@PathVariable("recId") Long recId, @PathVariable("ingId") Long ingId, @RequestParam("quantity") Long quantity) {
         recipeService.addIngredientToRecipe(recId, ingId, quantity);
+    }
+
+    @RequestMapping(value = "/like/{recId}", method = RequestMethod.PUT)
+    public Long likeRecipe(@PathVariable Long recId) {
+        return recipeService.likeRecipe(recId);
+    }
+
+    @RequestMapping(value = "/dislike/{recId}", method = RequestMethod.PUT)
+    public Long dislikeRecipe(@PathVariable Long recId) {
+        return recipeService.dislikeRecipe(recId);
     }
 
 }

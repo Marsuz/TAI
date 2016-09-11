@@ -53,4 +53,18 @@ public class RecipeService {
         recipe.addIngredient(new IngredientQuantityWrapper(ingredient, recipe, quantity));
         recipeRepository.save(recipe);
     }
+
+    public Long likeRecipe(Long recipeId) {
+        Recipe recipe = getRecipeById(recipeId);
+        Long result = recipe.likeRecipe();
+        saveRecipe(recipe);
+        return result;
+    }
+
+    public Long dislikeRecipe(Long recipeId) {
+        Recipe recipe = getRecipeById(recipeId);
+        Long result = recipe.dislikeRecipe();
+        saveRecipe(recipe);
+        return result;
+    }
 }
