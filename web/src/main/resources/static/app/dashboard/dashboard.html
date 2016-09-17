@@ -19,11 +19,11 @@
 
 
                 <div class="panel-footer">
-                    <button type="button" class="btn btn-success navbar-btn">
+                    <button type="button" class="btn btn-success navbar-btn" ng-class="{disabled: liked}" ng-click="likeRecipe(x)">
                         <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                        Like ({{x.likeCounter || "0"}})
+                        Like<span ng-show="liked">d</span> ({{x.likeCounter || "0"}})
                     </button>
-                    <button type="button" class="btn btn-danger navbar-btn">
+                    <button type="button" class="btn btn-danger navbar-btn" ng-class="{disabled: disliked}" ng-click="dislikeRecipe(x)">
                         <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                         Dislike ({{x.dislikeCounter || "0"}})
                     </button>

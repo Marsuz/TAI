@@ -5,6 +5,9 @@ app.controller('DashboardCtrl', function ($scope, $http, $anchorScroll) {
     $scope.lastPage = 1;
     $scope.itemsPerPage = 10;
     $scope.currentPage = 1;
+    $scope.disabled = undefined;
+    $scope.liked = undefined;
+    $scope.disliked = undefined;
     
     $scope.getData = function(callbackFunc) {
         console.log("GETTING DATA");
@@ -22,7 +25,7 @@ app.controller('DashboardCtrl', function ($scope, $http, $anchorScroll) {
             
             console.log(data);
 
-            console.log(data[0].description);
+            console.log(data[0].liked);
 
         }).error(function(){
             console.log("ERROR");
@@ -46,6 +49,48 @@ app.controller('DashboardCtrl', function ($scope, $http, $anchorScroll) {
             $anchorScroll();
         }
     }
-    
+
+    $scope.likeRecipe = function(x) {
+        console.log("TRYING TO LIKE")
+        console.log(!x.liked && !x.disliked)
+        if(!x.liked && !x.disliked) {
+            $http({
+                method: 'PUT',
+                url: '/recipes/like/' + x.id
+            }).success(function(data){
+
+                console.log("SUCCESSFUL LIKING");
+                x.likeCounter = data;
+                $scope.liked = true;
+                $scope.disliked = undefined;
+
+            }).error(function(){
+                console.log("ERROR liking");
+            });
+        }
+    }
+
+    $scope.dislikeRecipe = function(x) {
+        console.log("TRYING TO DISLIKE")
+        console.log(!x.liked && !x.disliked)
+        if(!x.liked && !x.disliked) {
+            $http({
+                method: 'PUT',
+                url: '/recipes/dislike/' + x.id
+            }).success(function(data){
+
+                console.log("SUCCESSFUL DISLIKING");
+                x.dislikeCounter = data;
+
+                $scope.liked = undefined;
+                $scope.disliked = true;
+
+            }).error(function(){
+                console.log("ERROR disliking");
+            });
+        }
+    }
+
+
 
 });
