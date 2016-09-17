@@ -1,6 +1,7 @@
 package controllers;
 
 import model.Recipe;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import services.RecipeService;
@@ -18,9 +19,10 @@ public class RecipeController {
     @Autowired
     RecipeService recipeService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void createBlankRecipe(@RequestParam("name") String name, @RequestParam("desc") String desc) {
-        recipeService.createNewRecipe(name, desc);
+    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
+    public void createBlankRecipe(@RequestBody String jsonBody) {
+        JSONObject jsonObject = new JSONObject(jsonBody);
+        recipeService.createNewRecipe(jsonObject.getString("name"), jsonObject.getString("desc"));
     }
 
     @RequestMapping(value = "/addWhole", method = RequestMethod.POST)
