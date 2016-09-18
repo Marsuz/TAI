@@ -13,7 +13,7 @@ public abstract class ObjectWithId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    protected Long id;
 
     public Long getId() {
         return id;
