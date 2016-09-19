@@ -54,20 +54,9 @@
 
 
 
-<body ng-app="app" ng-controller="AuthCtrl" ng-init="init()" style="background-image: url('images/food.png')">
+<body ng-app="app" ng-controller="AuthCtrl" ng-init="init()"  style="background-image: url('images/food.png')">
 
-  <div ng-hide="authenticated">
-    <a href="/auth/facebook"><button>Login with Facebook</button></a>
-  </div>
-  <div ng-show="authenticated">
-    Logged in as {{username}} <button ng-click="logout()">Logout</button><br><br>
-    Token content: <pre>{{token | json}}</pre>
-  </div>
-  <div ng-show="authenticated">
-    <button ng-click="getSocialDetails()">Get Social Details</button>
-    <pre>{{socialDetails | json}}</pre>
-  </div>
-<!--<ui-view></ui-view> -->
+<ui-view></ui-view>
 
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

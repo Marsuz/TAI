@@ -1,9 +1,10 @@
 <div class="container">
 
     <nav style="margin-bottom: 5px">
-        <ul class="nav nav-pills">
-            <a class="btn btn-default" href="#login" role="button">Login</a>
+        <ul class="nav nav-pills" ng-controller="LogOutCtrl" >
+            <a class="btn btn-default" href="#login" role="button" ng-click="logout()">Log out</a>
             <a class="btn btn-default" href="#profile" role="button">Profile</a>
+            <a class="btn btn-default" href="#profile" role="button">Logged in as: {{$rootScope.username}}</a>
 
         </ul>
     </nav>
