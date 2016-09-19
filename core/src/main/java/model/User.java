@@ -52,6 +52,8 @@ public class User extends ObjectWithId implements SocialUserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<UserAuthority> authorities;
 
+    @OneToMany
+    @JsonIgnore
     public List<Recipe> getRecipeList() {
         return recipeList;
     }
