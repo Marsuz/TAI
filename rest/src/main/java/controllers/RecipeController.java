@@ -38,6 +38,11 @@ public class RecipeController {
         return recipeService.getAllRecipes();
     }
 
+    @RequestMapping(value = "/owned", method = RequestMethod.GET)
+    public List<Recipe> getUsersRecipes() throws Exception{
+        return recipeService.getUsersRecipes();
+    }
+
     @RequestMapping(value = "/{recId}", method = RequestMethod.GET)
     public Recipe getRecipeById(@PathVariable Long recId) {
         return recipeService.getRecipeById(recId);
