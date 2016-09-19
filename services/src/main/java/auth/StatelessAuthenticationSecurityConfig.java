@@ -60,7 +60,6 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 						"/login**",
 						"/webjars/**",
 						"/assets/**",
-						"/app/**",
 						"/api/auth/isAuthenticated", "/auth/**").permitAll()
 
 				//allow anonymous GETs to API

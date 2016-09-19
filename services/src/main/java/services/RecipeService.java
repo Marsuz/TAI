@@ -36,6 +36,10 @@ public class RecipeService {
         return recipeRepository.findAll();
     }
 
+    public List<Recipe> getTop20Recipes() {
+        return recipeRepository.findTopRecipes();
+    }
+
     @Transactional
     public void createNewRecipe(String name, String desc) throws Exception {
         User currentUser = getCurrentUser();

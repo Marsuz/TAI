@@ -30,6 +30,9 @@ public class RecipeController {
         recipeService.createRecipe(recipe);
     }
 
+    @RequestMapping(value = "/top", method = RequestMethod.GET)
+    public List<Recipe> getTopRecipes() { return recipeService.getTop20Recipes(); }
+
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Recipe> getAllRecipes() {
         return recipeService.getAllRecipes();
