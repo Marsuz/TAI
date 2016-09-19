@@ -1,4 +1,4 @@
-app.controller('DashboardCtrl', function ($scope, $http, $anchorScroll) {
+app.controller('DashboardCtrl', function ($scope, $http, $anchorScroll, $cookies) {
 
     $scope.records = {};
 
@@ -13,9 +13,9 @@ app.controller('DashboardCtrl', function ($scope, $http, $anchorScroll) {
         console.log("GETTING DATA");
         $http({
             method: 'GET',
-            url: '/recipes/top'
+            url: '/recipes/top',
             // params: 'limit=10, sort_by=created:desc',
-            // headers: {'Authorization': 'Token token=xxxxYYYYZzzz'}
+            headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
         }).success(function(data){
             // With the data succesfully returned, call our callback
 
@@ -56,7 +56,8 @@ app.controller('DashboardCtrl', function ($scope, $http, $anchorScroll) {
         if(!x.liked && !x.disliked) {
             $http({
                 method: 'PUT',
-                url: '/recipes/like/' + x.id
+                url: '/recipes/like/' + x.id,
+                headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
             }).success(function(data){
 
                 console.log("SUCCESSFUL LIKING");
@@ -76,7 +77,8 @@ app.controller('DashboardCtrl', function ($scope, $http, $anchorScroll) {
         if(!x.liked && !x.disliked) {
             $http({
                 method: 'PUT',
-                url: '/recipes/dislike/' + x.id
+                url: '/recipes/dislike/' + x.id,
+                headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
             }).success(function(data){
 
                 console.log("SUCCESSFUL DISLIKING");

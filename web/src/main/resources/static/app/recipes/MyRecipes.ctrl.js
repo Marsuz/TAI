@@ -1,4 +1,4 @@
-app.controller('MyRecipesCtrl', function ($scope, $http, $anchorScroll) {
+app.controller('MyRecipesCtrl', function ($scope, $http, $anchorScroll, $cookies) {
 
     $scope.records = {};
     
@@ -10,9 +10,9 @@ app.controller('MyRecipesCtrl', function ($scope, $http, $anchorScroll) {
         console.log("GETTING DATA");
         $http({
             method: 'GET',
-            url: '/recipes/owned'
+            url: '/recipes/owned',
             // params: 'limit=10, sort_by=created:desc',
-            // headers: {'Authorization': 'Token token=xxxxYYYYZzzz'}
+            headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
         }).success(function(data){
             // With the data succesfully returned, call our callback
 
@@ -27,7 +27,7 @@ app.controller('MyRecipesCtrl', function ($scope, $http, $anchorScroll) {
     };
 
     $scope.getData();
-    
+
 
     $scope.loadNextPage = function () {
         if($scope.currentPage < $scope.lastPage){
