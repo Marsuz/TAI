@@ -1,4 +1,4 @@
-app.controller('HomeCtrl', function ($scope, $state) {
+app.controller('HomeCtrl', function ($scope, $state, TokenStorage) {
 
     $scope.tab = 1;
 

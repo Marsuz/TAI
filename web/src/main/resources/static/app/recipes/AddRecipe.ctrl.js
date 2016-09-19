@@ -1,4 +1,4 @@
-app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies) {
+app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies, TokenStorage) {
     console.log("LOG: AddRecipeController")
     $scope.ingredients = [];
 
@@ -93,6 +93,11 @@ app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies
             
         }).success(function(data){
             console.log(data);
+            alert("Successfully added recipe.");
+            $scope.title = "";
+            
+            $scope.getCategories();
+            
             
         }).error(function(){
             console.log("ERROR POSTING");
