@@ -61,6 +61,12 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
+    public List<Recipe> getUsersRecipes() throws Exception{
+        User currentUser = getCurrentUser();
+        currentUser = userRepository.findById(currentUser.getId());
+        return currentUser.getRecipeList();
+    }
+
     public Recipe getRecipeById(Long id) {
         Recipe recipe = recipeRepository.findOne(id);
         Assert.notNull(recipe, "There is no such recipe");
