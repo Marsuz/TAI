@@ -104,6 +104,7 @@ app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies
                 console.log(data);
                 alert("Successfully added recipe.");
                 $scope.title = "";
+                $scope.description = "";
 
                 $scope.getCategories();
 
@@ -239,6 +240,7 @@ app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies
             }).success(function(data){
                 console.log("Sucessfullly added category")
                 console.log(data);
+                alert("Successfully added category.");
                 $('#categoryModal').modal('hide');
                 $scope.newCategory.name = "";
                 
@@ -293,6 +295,7 @@ app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies
             }).success(function(data){
                 console.log("Sucessfullly added ingredient")
                 console.log(data);
+                alert("Successfully added ingredient.");
                 $('#categoryModal').modal('hide');
                 $scope.getIngredientsFromCategory($scope.getCategoryId($scope.newIngredient.category));
                 $scope.newIngredient.name = "";
