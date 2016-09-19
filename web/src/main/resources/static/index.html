@@ -12,7 +12,7 @@
   <title>Przepisy</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!--<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">-->
 
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
   <link href="lib/bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
@@ -25,8 +25,8 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <script src="lib/angular/angular.js"></script>
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>-->
+  <script src="lib/angular.js"></script>
   <script src="lib/angular-resource/angular-resource.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
 
@@ -36,14 +36,38 @@
 
   <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
   <script src="example.js"></script>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">-->
+
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script src="lib/angular-cookies.js" type="application/javascript"></script>
 
 </head>
 
-<body ng-app="app" style="background-image: url('images/food.png')">
 
 
-<ui-view></ui-view>
+<body ng-app="app" ng-controller="AuthCtrl" ng-init="init()" style="background-image: url('images/food.png')">
+
+  <div ng-hide="authenticated">
+    <a href="/auth/facebook"><button>Login with Facebook</button></a>
+  </div>
+  <div ng-show="authenticated">
+    Logged in as {{username}} <button ng-click="logout()">Logout</button><br><br>
+    Token content: <pre>{{token | json}}</pre>
+  </div>
+  <div ng-show="authenticated">
+    <button ng-click="getSocialDetails()">Get Social Details</button>
+    <pre>{{socialDetails | json}}</pre>
+  </div>
+<!--<ui-view></ui-view> -->
 
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
