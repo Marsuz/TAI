@@ -37,7 +37,8 @@ public class RecipeService {
     }
 
     public List<Recipe> getTop20Recipes() {
-        return recipeRepository.findTopRecipes();
+        List<Recipe> recipes = recipeRepository.findTopRecipes();
+        return recipes.subList(0, 19);
     }
 
     @Transactional
