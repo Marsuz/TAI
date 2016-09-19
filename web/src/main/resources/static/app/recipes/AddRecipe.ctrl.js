@@ -1,4 +1,4 @@
-app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies, TokenStorage) {
+app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies, TokenStorage, Authentication) {
     console.log("LOG: AddRecipeController")
     $scope.ingredients = [];
 
@@ -16,7 +16,6 @@ app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies
 
     $scope.categoriesWithIngredients = [];
     $scope.ingredientsFromCategory = []; // from json
-
 
 
     $scope.showChecked = function () {
@@ -79,29 +78,46 @@ app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies
     $scope.postRecipe = function() {
         console.log("POSTING DATA");
 
-        var jsonToSend = {
-            "name": $scope.title,
-            "description": $scope.description,
-            "ingredientsWithQuantity": $scope.processIngredients()
-        };
-        
         $http({
-            method: 'POST',
-            url: '/recipes/addWhole',
-            data: jsonToSend,
+            method: 'GET',
+            url: '/api/user/current',
             headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
-            
+
         }).success(function(data){
+            console.log("getu");
             console.log(data);
-            alert("Successfully added recipe.");
-            $scope.title = "";
-            
-            $scope.getCategories();
-            
-            
+
+            var jsonToSend = {
+                "name": $scope.title,
+                "description": $scope.description,
+                "ingredientsWithQuantity": $scope.processIngredients(),
+                "user": data
+            };
+
+            $http({
+                method: 'POST',
+                url: '/recipes/addWhole',
+                data: jsonToSend,
+                headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
+
+            }).success(function(data){
+                console.log(data);
+                alert("Successfully added recipe.");
+                $scope.title = "";
+
+                $scope.getCategories();
+
+
+            }).error(function(){
+                console.log("ERROR POSTING");
+            });
+
+
         }).error(function(){
-            console.log("ERROR POSTING");
+            console.log("ERROR");
         });
+        
+
     };
 
     $scope.getIngredientsFromCategory = function (category) {
