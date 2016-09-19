@@ -91,7 +91,7 @@ app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies
                 "name": $scope.title,
                 "description": $scope.description,
                 "ingredientsWithQuantity": $scope.processIngredients(),
-                "user": data
+                "owner": data
             };
 
             $http({

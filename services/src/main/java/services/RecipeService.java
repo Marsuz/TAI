@@ -51,8 +51,8 @@ public class RecipeService {
 
     @Transactional
     public void createRecipe(Recipe recipe) throws Exception {
-        User currentUser = getCurrentUser();
-        currentUser = userRepository.findById(currentUser.getId());
+        //User currentUser = getCurrentUser();
+        //currentUser = userRepository.findById(currentUser.getId());
         recipeRepository.save(recipe);
     }
 

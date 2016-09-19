@@ -65,6 +65,14 @@ public class Recipe extends ObjectWithId{
         this.dislikeCounter = dislikeCounter;
     }
 
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
     public List<IngredientQuantityWrapper> getIngredientsWithQuantity() {
         return ingredientsWithQuantity;
     }
