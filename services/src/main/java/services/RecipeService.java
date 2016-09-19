@@ -38,7 +38,7 @@ public class RecipeService {
 
     public List<Recipe> getTop20Recipes() {
         List<Recipe> recipes = recipeRepository.findTopRecipes();
-        return recipes.subList(0, 19);
+        return recipes == null ? new ArrayList<>() : recipes.size() > 20 ? recipes.subList(0, 19) : recipes;
     }
 
     @Transactional
