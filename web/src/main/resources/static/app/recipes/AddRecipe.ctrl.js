@@ -1,4 +1,4 @@
-app.controller('AddRecipeController', function ($scope, $http, $filter) {
+app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies) {
     console.log("LOG: AddRecipeController")
     $scope.ingredients = [];
 
@@ -88,7 +88,8 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
         $http({
             method: 'POST',
             url: '/recipes/addWhole',
-            data: jsonToSend
+            data: jsonToSend,
+            headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
             
         }).success(function(data){
             console.log(data);
@@ -210,7 +211,9 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
             $http({
                 method: 'POST',
                 url: '/cat/add',
-                data: toSend
+                data: toSend,
+                headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
+
 
             }).success(function(data){
                 console.log("Sucessfullly added category")
@@ -263,7 +266,8 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
             $http({
                 method: 'POST',
                 url: '/ing/add',
-                data: toSend
+                data: toSend,
+                headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
 
             }).success(function(data){
                 console.log("Sucessfullly added ingredient")
