@@ -20,14 +20,14 @@ public class RecipeController {
     RecipeService recipeService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "application/json")
-    public void createBlankRecipe(@RequestBody String jsonBody) {
+    public void createBlankRecipe(@RequestBody String jsonBody) throws Exception{
         JSONObject jsonObject = new JSONObject(jsonBody);
         recipeService.createNewRecipe(jsonObject.getString("name"), jsonObject.getString("desc"));
     }
 
     @RequestMapping(value = "/addWhole", method = RequestMethod.POST)
-    public void addRecipe(@RequestBody Recipe recipe) {
-        recipeService.saveRecipe(recipe);
+    public void addRecipe(@RequestBody Recipe recipe) throws Exception {
+        recipeService.createRecipe(recipe);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)

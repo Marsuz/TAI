@@ -53,11 +53,11 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 		http.exceptionHandling().and().anonymous().and().servletApi().and().headers().cacheControl();
 
 		//allow anonymous font and template requests
-		http.authorizeRequests().antMatchers("/").permitAll()
+		http.authorizeRequests()
+				.antMatchers("/").permitAll()
 				.antMatchers(
 						"/favicon.ico",
 						"/resources/**",
-						"/",
 						"/login**",
 						"/webjars/**",
 						"/bower_components/**",

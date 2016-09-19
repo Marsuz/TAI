@@ -1,7 +1,6 @@
 package auth;
 
-import com.flat.wallet.model.auth.UserAuthenticationUserIdSource;
-import com.flat.wallet.services.SocialUserService;
+import model.auth.UserAuthenticationUserIdSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +14,7 @@ import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.*;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import services.SocialUserService;
 
 @Configuration
 @EnableSocial

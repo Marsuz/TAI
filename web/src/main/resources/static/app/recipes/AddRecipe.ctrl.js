@@ -204,13 +204,79 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
         }
 
         $scope.ingredientsFromCategory = $scope.categoriesWithIngredients[categoryId];
+    };
+    
+    
+    $scope.categoryModal = true;
+    $scope.ingredientModal = false;
+    
+    $scope.setCatModal = function () {
+        $scope.categoryModal = true;
+        $scope.ingredientModal = false;
+        console.log($scope.newRecipe.title)
+    };
+    
+    $scope.setIngModal = function () {
+        $scope.categoryModal = false;
+        $scope.ingredientModal = true;
+    };
+
+    $scope.addNewCategory = function() {
+        console.log("Adding new category");
+        console.log($scope.categories);
+
+        var exists = false;
+        var i = 0;
+        for(i; i < $scope.categories.length && !exists; i++) {
+            console.log($scope.categories[i].name);
+            if($scope.categories[i].name == $scope.newCategory.name){
+                exists = true;
+            }
+        }
+
+        console.log("exists: " + exists);
+
+        $scope.newCategory.exists = exists;
+
+
+
+        if(!$scope.newCategory.exists) {
+
+            console.log($scope.newCategory.name);
+
+
+            var toSend = {
+                "name": $scope.newCategory.name
+            };
+
+            $http({
+                method: 'POST',
+                url: '/cat/add',
+                data: toSend
+
+            }).success(function(data){
+                console.log("Sucessfullly added category")
+                console.log(data);
+                $('#categoryModal').modal('hide');
+
+            }).error(function(){
+                console.log("ERROR POSTING");
+            });
+        }
+
+
+    };
+
+    $scope.addNewIngredient = function() {
+        console.log("Adding new ingredient");
+
+        console.log($scope.newIngredient.name);
+        console.log($scope.newIngredient.unit);
+        console.log($scope.newIngredient.category);
+
+        console.log($scope.categoriesWithIngredients);
+
+
     }
-
-
-
-
     
-    
-   
-
 });

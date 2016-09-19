@@ -3,6 +3,7 @@ package model;
 import wrappers.IngredientQuantityWrapper;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -14,6 +15,10 @@ public class Recipe extends ObjectWithId{
     private AtomicLong likeCounter = new AtomicLong(0);
     private AtomicLong dislikeCounter = new AtomicLong(0);
 
+    @NotNull
+    @ManyToOne
+    private User owner;
+
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name="recipe_id")
     private List<IngredientQuantityWrapper> ingredientsWithQuantity;
@@ -21,9 +26,10 @@ public class Recipe extends ObjectWithId{
     public Recipe() {
     }
 
-    public Recipe(String name, String description, List<IngredientQuantityWrapper> ingredientsWithQuantity) {
+    public Recipe(String name, String description, User owner, List<IngredientQuantityWrapper> ingredientsWithQuantity) {
         this.name = name;
         this.description = description;
+        this.owner = owner;
         this.ingredientsWithQuantity = ingredientsWithQuantity;
     }
 
