@@ -13,7 +13,7 @@ app.controller('DashboardCtrl', function ($scope, $http, $anchorScroll) {
         console.log("GETTING DATA");
         $http({
             method: 'GET',
-            url: '/recipes/all'
+            url: '/recipes/top'
             // params: 'limit=10, sort_by=created:desc',
             // headers: {'Authorization': 'Token token=xxxxYYYYZzzz'}
         }).success(function(data){

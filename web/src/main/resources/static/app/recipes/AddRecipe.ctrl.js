@@ -1,6 +1,6 @@
 app.controller('AddRecipeController', function ($scope, $http, $filter) {
-    console.log("LOG: AddREcipe CONTROLLER")
-    $scope.ingredients = ingredients; //mock :v
+    console.log("LOG: AddRecipeController")
+    $scope.ingredients = [];
 
     $scope.checkedIngredients = []; // variable to store checked ingredients and show them with quantity
 
@@ -21,14 +21,14 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
 
     $scope.showChecked = function () {
         console.log($scope.checkedIngredients);
-    }
+    };
 
     $scope.ingredientsString = function () { //string to show when choosing ingredients
         if ($scope.checkedIngredients.length == 0) {
             return "Choose your ingredients."
         }
         return "Your ingredients:"
-    }
+    };
 
     $scope.showOrHideIngredient = function (ingredient) {  // gets checked ingredients and shows/hides if checked/unchecked
 
@@ -76,31 +76,6 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
         console.log(jsonToSend)
     };
 
-    // delete $http.defaults.headers.common['X-Requested-With'];
-    $scope.getData = function(callbackFunc) {
-        console.log("GETTING DATA");
-        $http({
-            method: 'GET',
-            url: '/recipes/all'
-            // params: 'limit=10, sort_by=created:desc',
-            // headers: {'Authorization': 'Token token=xxxxYYYYZzzz'}
-        }).success(function(data){
-            // With the data succesfully returned, call our callback
-            //console.log(data);
-
-            //console.log(data[0].description);
-
-        }).error(function(){
-            //console.log("ERROR");
-            alert("error");
-        });
-    };
-
-    // $scope.getData();
-
-
-
-
     $scope.postRecipe = function() {
         console.log("POSTING DATA");
 
@@ -137,10 +112,7 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
             console.log("ERROR");
         });
 
-    }
-
-    $scope.getIngredientsFromCategory(1);
-
+    };
 
     $scope.getCategories = function () {
 
@@ -151,18 +123,13 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
         }).success(function(data){
             $scope.categories = data;
 
-            console.log(data);
-
-            $scope.selectedCategory = data[0].name;
-
             $scope.getIngredientsForCategories();
-
 
         }).error(function(){
             console.log("ERROR");
         });
 
-    }
+    };
     
     $scope.getCategories();
 
@@ -173,15 +140,11 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
 
         function getIngredients(element) {
 
-            console.log("GETTING ingredients for category " + element.name);
             $http({
                 method: 'GET',
                 url: '/ing/cat/' + element.id
             }).success(function(data){
                 $scope.categoriesWithIngredients[element.id] = data;
-
-                console.log("!!!!!!!!!!!!!!");
-                console.log($scope.categoriesWithIngredients);
 
             }).error(function(){
                 console.log("ERROR");
@@ -193,7 +156,7 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
     $scope.showCategory = function (categoryName) {
         console.log("showing category!!!");
 
-        var categoryId = 1;
+        var categoryId = 2;
 
         $scope.categories.forEach(findId);
 
@@ -213,7 +176,6 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
     $scope.setCatModal = function () {
         $scope.categoryModal = true;
         $scope.ingredientModal = false;
-        console.log($scope.newRecipe.title)
     };
     
     $scope.setIngModal = function () {
@@ -222,8 +184,6 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
     };
 
     $scope.addNewCategory = function() {
-        console.log("Adding new category");
-        console.log($scope.categories);
 
         var exists = false;
         var i = 0;
@@ -237,8 +197,6 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
         console.log("exists: " + exists);
 
         $scope.newCategory.exists = exists;
-
-
 
         if(!$scope.newCategory.exists) {
 
@@ -258,6 +216,9 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
                 console.log("Sucessfullly added category")
                 console.log(data);
                 $('#categoryModal').modal('hide');
+                $scope.newCategory.name = "";
+                
+                $scope.getCategories()
 
             }).error(function(){
                 console.log("ERROR POSTING");
@@ -267,6 +228,23 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
 
     };
 
+    $scope.getCategoryId = function (categoryName) {
+        console.log("getting category!!!");
+        console.log(categoryName);
+
+        var categoryId;
+
+        $scope.categories.forEach(findId);
+
+        function findId (element) {
+            if (element.name == categoryName) {
+                categoryId = element.id;
+            }
+        }
+
+        return categoryId;
+    };
+
     $scope.addNewIngredient = function() {
         console.log("Adding new ingredient");
 
@@ -274,7 +252,33 @@ app.controller('AddRecipeController', function ($scope, $http, $filter) {
         console.log($scope.newIngredient.unit);
         console.log($scope.newIngredient.category);
 
-        console.log($scope.categoriesWithIngredients);
+
+
+            var toSend = {
+                "name": $scope.newIngredient.name,
+                "unit": $scope.newIngredient.unit,
+                "catId": $scope.getCategoryId($scope.newIngredient.category)
+            };
+
+            $http({
+                method: 'POST',
+                url: '/ing/add',
+                data: toSend
+
+            }).success(function(data){
+                console.log("Sucessfullly added ingredient")
+                console.log(data);
+                $('#categoryModal').modal('hide');
+                $scope.getIngredientsFromCategory($scope.getCategoryId($scope.newIngredient.category));
+                $scope.newIngredient.name = "";
+                $scope.newIngredient.unit = "";
+                $scope.newIngredient.category = ""
+
+
+            }).error(function(){
+                console.log("ERROR POSTING");
+            });
+
 
 
     }

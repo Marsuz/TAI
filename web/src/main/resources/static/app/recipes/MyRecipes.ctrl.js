@@ -10,7 +10,7 @@ app.controller('MyRecipesCtrl', function ($scope, $http, $anchorScroll) {
         console.log("GETTING DATA");
         $http({
             method: 'GET',
-            url: '/recipes/all'
+            url: '/recipes/owned'
             // params: 'limit=10, sort_by=created:desc',
             // headers: {'Authorization': 'Token token=xxxxYYYYZzzz'}
         }).success(function(data){
@@ -20,13 +20,6 @@ app.controller('MyRecipesCtrl', function ($scope, $http, $anchorScroll) {
 
             $scope.lastPage = Math.ceil($scope.records.length/10);
 
-            console.log("last page");
-            console.log($scope.lastPage);
-
-            console.log(data);
-
-            console.log(data[0].description);
-
         }).error(function(){
             console.log("ERROR");
             alert("error");
@@ -34,10 +27,7 @@ app.controller('MyRecipesCtrl', function ($scope, $http, $anchorScroll) {
     };
 
     $scope.getData();
-
-
-
-    console.log($scope.lastPage);
+    
 
     $scope.loadNextPage = function () {
         if($scope.currentPage < $scope.lastPage){

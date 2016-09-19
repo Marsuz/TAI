@@ -15,6 +15,7 @@
                     <form name="newIngCat" ng-hide="categoryModal" ng-submit="addNewIngredient()">
                             <label for="selectCategoryForIng">Choose category for ingredient:</label>
                             <select class="form-control" id="selectCategoryForIng" ng-model="newIngredient.category" required>
+                                <option disabled selected value> ---- </option>
                                 <option ng-repeat="category in categories">{{category.name}}</option>
                             </select>
 
@@ -49,8 +50,6 @@
 
         </div>
     </div>
-
-
 
     <form name="newRecipe" ng-submit="postRecipe()">
         <div class="panel-body">
@@ -109,6 +108,7 @@
                     <div style="float: left; width: 50%;">
                         <label for="sel1">Choose category:</label>
                         <select class="form-control" id="sel1" ng-model="selectedCategory" ng-change="showCategory(selectedCategory)">
+                            <option disabled selected value> ---- </option>
                             <option ng-repeat="category in categories">{{category.name}}</option>
                         </select>
                     </div>

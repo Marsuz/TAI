@@ -3,8 +3,7 @@
     <nav style="margin-bottom: 5px">
         <ul class="nav nav-pills" ng-controller="LogOutCtrl" >
             <a class="btn btn-default" href="#login" role="button" ng-click="logout()">Log out</a>
-            <a class="btn btn-default" href="#profile" role="button">Profile</a>
-            <a class="btn btn-default" href="#profile" role="button">Logged in as: {{$rootScope.username}}</a>
+            <a class="btn btn-default" href="#profile" role="button">Logged in as: {{username}}</a>
 
         </ul>
     </nav>
@@ -20,16 +19,16 @@
         <section ng-controller="HomeCtrl" style="background-color: white">
             <ul id ="myTabs" class="nav nav-tabs" >
                 <li ng-class="{active:isSet(1)}" role="presentation" class="active">
-                    <a ng-click="changeState(1)" data-toggle="tab" href="#">Home</a>
+                    <a ng-click="changeState(1)" data-toggle="tab">Home</a>
                 </li>
                 <li ng-class="{active:isSet(2)}" role="presentation">
-                    <a ng-click="changeState(2)" data-toggle="tab" href="#/my-recipes">My recipes</a>
+                    <a ng-click="changeState(2)" data-toggle="tab" >My recipes</a>
                 </li>
                 <li ng-class="{active:isSet(3)}" role="presentation">
-                    <a ng-click="changeState(3)" data-toggle="tab" href="#/add-recipe">Add recipe</a>
+                    <a ng-click="changeState(3)" data-toggle="tab" >Add recipe</a>
                 </li>
                 <li ng-class="{active:isSet(4)}" role="presentation">
-                    <a ng-click="changeState(4)" data-toggle="tab" href="#/search">Search</a>
+                    <a ng-click="changeState(4)" data-toggle="tab">Search</a>
                 </li>
 
             </ul>
