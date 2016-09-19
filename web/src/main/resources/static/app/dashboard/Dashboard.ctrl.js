@@ -1,4 +1,4 @@
-app.controller('DashboardCtrl', function ($scope, $http, $anchorScroll, $cookies) {
+app.controller('DashboardCtrl', function ($scope, $http, $anchorScroll, $cookies, TokenStorage) {
 
     $scope.records = {};
 
