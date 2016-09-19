@@ -57,6 +57,9 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 				.antMatchers("/").permitAll()
 				.antMatchers(
 						"/resources/**",
+						"/favicon.ico",
+						"/",
+						"/app**",
 						"/login**",
 						"/webjars/**",
 						"/assets/**",

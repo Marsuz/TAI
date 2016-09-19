@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = {"model", "wrappers"})
 @EnableJpaRepositories(basePackages = {"repositories"})
 @ComponentScan({
-        "services", "repositories", "controllers"
+        "services", "auth", "token", "repositories", "controllers"
 })
 public class App {
 

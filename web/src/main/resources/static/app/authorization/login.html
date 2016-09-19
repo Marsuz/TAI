@@ -1,11 +1,6 @@
 <div class="container">
 
-    <div ng-hide="authenticated">
+    <div>
         <a href="/auth/facebook"><button>Login with Facebook</button></a>
     </div>
-    <div ng-show="authenticated">
-        Logged in as {{username}} <button ng-click="logout()">Logout</button><br><br>
-        Token content: <pre>{{token | json}}</pre>
-    </div>
-
 </div> <!-- /container -->
