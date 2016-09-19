@@ -22,14 +22,9 @@ app.controller('DashboardCtrl', function ($scope, $http, $anchorScroll, $cookies
             $scope.records = data;
 
             $scope.lastPage = Math.ceil($scope.records.length/10);
-            
-            console.log(data);
-
-            console.log(data[0].liked);
 
         }).error(function(){
             console.log("ERROR");
-            alert("error");
         });
     };
 
