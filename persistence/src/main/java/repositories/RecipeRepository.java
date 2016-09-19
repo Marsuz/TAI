@@ -13,6 +13,6 @@ import java.util.List;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
-    @Query("select rec from Recipe rec order by rec.likeCounter DESC LIMIT 0,20")
+    @Query("select rec from Recipe rec order by rec.likeCounter DESC")
     List<Recipe> findTopRecipes();
 }
