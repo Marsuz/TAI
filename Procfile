@@ -1,1 +1,1 @@
-web: web/target/*.jar -Dhttp.port=${PORT} ${JAVA_OPTS}
+web: java -jar web/target/web-1.0.-SNAPSHOT.jar
