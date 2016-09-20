@@ -34,7 +34,7 @@ app.factory('TokenStorage', function() {
 }).config(function($httpProvider, $stateProvider, $urlRouterProvider) {
     $httpProvider.interceptors.push('TokenAuthInterceptor');
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/dashboard');
 
     $stateProvider
 
@@ -105,7 +105,7 @@ app.run(function ($rootScope, Authentication, $state, $cookies, TokenStorage, $h
             $rootScope.authenticated = true;
             $rootScope.username = user.username;
             
-            $state.go('home');
+            $state.go('home.dashboard');
         } else {
             $rootScope.authenticated = false;
             $state.go('login');
