@@ -34,7 +34,7 @@ public class User extends ObjectWithId implements SocialUserDetails {
     @Transient
     private long expires;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Recipe> recipeList = new ArrayList<>();
 
     @NotNull
