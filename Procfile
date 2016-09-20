@@ -1,0 +1,1 @@
+web: web/target/*.jar -Dhttp.port=${PORT} ${JAVA_OPTS}
