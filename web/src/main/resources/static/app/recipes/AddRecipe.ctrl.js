@@ -126,7 +126,8 @@ app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies
         console.log("GETTING DATA");
         $http({
             method: 'GET',
-            url: '/ing/cat/' + category
+            url: '/ing/cat/' + category,
+            headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
         }).success(function(data){
             $scope.ingredientsFromCategory = data;
             console.log(data);
@@ -142,7 +143,8 @@ app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies
         console.log("GETTING categories");
         $http({
             method: 'GET',
-            url: '/cat/all'
+            url: '/cat/all',
+            headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
         }).success(function(data){
             $scope.categories = data;
 
@@ -165,7 +167,8 @@ app.controller('AddRecipeController', function ($scope, $http, $filter, $cookies
 
             $http({
                 method: 'GET',
-                url: '/ing/cat/' + element.id
+                url: '/ing/cat/' + element.id,
+                headers: {'X-AUTH-TOKEN': $cookies.get('AUTH-TOKEN')}
             }).success(function(data){
                 $scope.categoriesWithIngredients[element.id] = data;
 
