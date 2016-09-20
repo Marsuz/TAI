@@ -82,6 +82,7 @@ app.factory('TokenStorage', function() {
 
         .state('home.search', {
             url: 'search',
+            controller: 'SearchCtrl',
             templateUrl: 'app/search/search.html',
             onEnter: function($rootScope){
                 $rootScope.$broadcast('tabChange', 4);
