@@ -67,6 +67,7 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 						"/lib/**",
 						"/api/auth/isAuthenticated", "/auth/**").permitAll()
 
+				.antMatchers(HttpMethod.GET, "/api/user/curent").permitAll()
 				.antMatchers(HttpMethod.GET, "/ing/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/recipes/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/cat/**").permitAll()
